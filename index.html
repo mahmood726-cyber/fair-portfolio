@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAIRPortfolio</title>
+  <meta name="description" content="FAIR-inspired proxy scoring dashboard for the ResearchConstellation portfolio snapshot.">
+  <style>
+    :root {
+      --bg: #eef4eb;
+      --ink: #1b221b;
+      --muted: #596559;
+      --line: rgba(27, 34, 27, 0.12);
+      --panel: rgba(250, 253, 249, 0.94);
+      --accent: #2f6b2f;
+      --accent-2: #8b5e34;
+      --shadow: 0 24px 60px rgba(27, 34, 27, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Palatino Linotype", "Georgia", serif;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(47, 107, 47, 0.12), transparent 22%),
+        radial-gradient(circle at 82% 18%, rgba(139, 94, 52, 0.12), transparent 22%),
+        linear-gradient(180deg, #f6faf3 0%, #e8eee3 100%);
+    }
+    main {
+      width: min(1160px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 64px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    .hero, .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .hero {
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.76rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    h1, h2 {
+      margin: 0;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+    h1 { font-size: clamp(2.3rem, 5vw, 4.6rem); }
+    h2 { font-size: 1.45rem; }
+    p {
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+    .label {
+      display: block;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .value {
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--ink);
+      font-weight: 700;
+    }
+    .stack {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    .row strong {
+      display: block;
+      color: var(--ink);
+    }
+    .row span {
+      display: block;
+      color: var(--muted);
+    }
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(47, 107, 47, 0.12);
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      text-align: right;
+    }
+    a {
+      color: var(--accent-2);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .section { margin-top: 18px; }
+    @media (max-width: 860px) {
+      .hero, .grid, .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="panel hero">
+      <div>
+        <p class="eyebrow">Maturity Scoring</p>
+        <h1>FAIRPortfolio</h1>
+        <p>
+          A new project that scores the snapshot against FAIR-style proxy signals at project level, making the weak
+          parts of the portfolio visible without pretending the current evidence supports a formal FAIR audit.
+        </p>
+      </div>
+      <aside class="panel" style="padding:18px">
+        <p class="eyebrow" style="margin-bottom:10px">Portfolio Metrics</p>
+        <div class="stats" id="metric-grid"></div>
+      </aside>
+    </section>
+
+    <section class="grid section">
+      <section class="panel">
+        <p class="eyebrow">Band Breakdown</p>
+        <h2>Proxy maturity bands</h2>
+        <div class="stack" id="band-breakdown"></div>
+      </section>
+      <section class="panel">
+        <p class="eyebrow">Component Means</p>
+        <h2>Average F/A/I/R proxy scores</h2>
+        <div class="stack" id="component-means"></div>
+      </section>
+    </section>
+
+    <section class="grid section">
+      <section class="panel">
+        <p class="eyebrow">Best Tiers</p>
+        <h2>Where the snapshot already looks reusable</h2>
+        <div class="stack" id="best-tiers"></div>
+      </section>
+      <section class="panel">
+        <p class="eyebrow">Weakest Tiers</p>
+        <h2>Where maturity still collapses</h2>
+        <div class="stack" id="weakest-tiers"></div>
+      </section>
+    </section>
+
+    <section class="grid section">
+      <section class="panel">
+        <p class="eyebrow">Top Projects</p>
+        <h2>Highest proxy scores</h2>
+        <div class="stack" id="top-projects"></div>
+      </section>
+      <section class="panel">
+        <p class="eyebrow">Bottom Projects</p>
+        <h2>Rows needing the most structural improvement</h2>
+        <div class="stack" id="bottom-projects"></div>
+      </section>
+    </section>
+
+    <section class="panel section">
+      <p class="eyebrow">Artifacts</p>
+      <h2>Repo outputs</h2>
+      <div class="grid">
+        <article class="card">
+          <span class="label">Score file</span>
+          <strong>fair-scores.json</strong>
+          <p>The full proxy scoring table across all 134 portfolio projects.</p>
+          <a href="fair-scores.json">Open scores</a>
+        </article>
+        <article class="card">
+          <span class="label">Builder</span>
+          <strong>scripts/build_fair_portfolio.py</strong>
+          <p>Snapshot-first generator for the score file and dashboard payload.</p>
+          <a href="scripts/build_fair_portfolio.py">Open builder</a>
+        </article>
+        <article class="card">
+          <span class="label">Reader</span>
+          <strong>e156-submission/index.html</strong>
+          <p>The E156 paper and protocol capsule for the maturity-scoring method.</p>
+          <a href="e156-submission/index.html">Open E156 reader</a>
+        </article>
+        <article class="card">
+          <span class="label">Source snapshot</span>
+          <strong>data-source/portfolio-data.snapshot.json</strong>
+          <p>The bundled snapshot that keeps the repo rebuildable on its own.</p>
+          <a href="data-source/portfolio-data.snapshot.json">Open snapshot</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script>
+    const data = window.FAIR_PORTFOLIO_DATA;
+    function card(label, value) {
+      return '<div class="card"><span class="label">' + label + '</span><span class="value">' + value + '</span></div>';
+    }
+    function row(title, subtitle, value) {
+      return '<div class="row"><div><strong>' + title + '</strong><span>' + subtitle + '</span></div><span class="pill">' + value + '</span></div>';
+    }
+    document.getElementById('metric-grid').innerHTML = [
+      card('Projects', data.metrics.trackedProjects),
+      card('Mean score', data.metrics.meanTotalScore),
+      card('At 70+', data.metrics.score70Count),
+      card('Weak band', data.metrics.weakCount)
+    ].join('');
+    document.getElementById('band-breakdown').innerHTML = data.bandBreakdown.map(function(item) {
+      return row(item.band, 'Projects in this maturity band', item.count);
+    }).join('');
+    document.getElementById('component-means').innerHTML = [
+      row('Findable', 'Average proxy component', data.componentMeans.findable),
+      row('Accessible', 'Average proxy component', data.componentMeans.accessible),
+      row('Interoperable', 'Average proxy component', data.componentMeans.interoperable),
+      row('Reusable', 'Average proxy component', data.componentMeans.reusable)
+    ].join('');
+    document.getElementById('best-tiers').innerHTML = data.bestTiers.map(function(item) {
+      return row(item.tier, 'Average total proxy score', item.meanScore);
+    }).join('');
+    document.getElementById('weakest-tiers').innerHTML = data.weakestTiers.map(function(item) {
+      return row(item.tier, 'Average total proxy score', item.meanScore);
+    }).join('');
+    document.getElementById('top-projects').innerHTML = data.topProjects.map(function(item) {
+      return row(item.name, item.tier + ' | ' + item.band, item.scores.total + '/100');
+    }).join('');
+    document.getElementById('bottom-projects').innerHTML = data.bottomProjects.map(function(item) {
+      return row(item.name, item.tier + ' | ' + item.band, item.scores.total + '/100');
+    }).join('');
+  </script>
+</body>
+</html>

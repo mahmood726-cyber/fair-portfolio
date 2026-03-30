@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAIRPortfolio E156</title>
+  <meta name="description" content="E156 micro-paper and protocol for FAIRPortfolio.">
+  <style>
+    :root {
+      --bg: #eef4eb;
+      --ink: #1b221b;
+      --muted: #596559;
+      --line: rgba(27, 34, 27, 0.12);
+      --panel: rgba(250, 253, 249, 0.94);
+      --accent: #2f6b2f;
+      --accent-2: #8b5e34;
+      --shadow: 0 24px 60px rgba(27, 34, 27, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Palatino Linotype", "Georgia", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 18%, rgba(47, 107, 47, 0.12), transparent 24%),
+        radial-gradient(circle at 80% 20%, rgba(139, 94, 52, 0.12), transparent 24%),
+        linear-gradient(180deg, #f6faf3 0%, #e8eee3 100%);
+    }
+    main {
+      width: min(980px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+      gap: 18px;
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    h1, h2 {
+      margin: 0;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+    h1 { font-size: clamp(2.2rem, 5vw, 4rem); }
+    h2 { font-size: 1.45rem; }
+    p {
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .meta-grid, .artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .meta-card, .artifact-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.72);
+    }
+    .label {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .value {
+      font-size: 1.5rem;
+      line-height: 1;
+      color: var(--ink);
+      font-weight: 700;
+    }
+    .section { margin-top: 18px; }
+    .paper-body {
+      color: var(--ink);
+      font-size: 1.02rem;
+    }
+    a {
+      color: var(--accent-2);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .artifact-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+    .artifact-card p { margin: 0 0 10px; }
+    .footnote { margin-top: 18px; font-size: 0.88rem; }
+    @media (max-width: 760px) {
+      .hero, .meta-grid, .artifact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="panel hero">
+      <div>
+        <p class="eyebrow">E156 Submission</p>
+        <h1>FAIRPortfolio</h1>
+        <p>
+          A publication-facing capsule for the maturity gap: one FAIR-inspired proxy dashboard, one scoring file,
+          and one 156-word micro-paper built from the bundled portfolio snapshot.
+        </p>
+      </div>
+      <aside class="panel" style="padding:18px">
+        <p class="eyebrow" style="margin-bottom:10px">Audit Snapshot</p>
+        <div class="meta-grid" style="margin-top:0">
+          <div class="meta-card">
+            <span class="label">Projects</span>
+            <span class="value">134</span>
+          </div>
+          <div class="meta-card">
+            <span class="label">Mean score</span>
+            <span class="value">48.6</span>
+          </div>
+          <div class="meta-card">
+            <span class="label">At 70+</span>
+            <span class="value">19</span>
+          </div>
+          <div class="meta-card">
+            <span class="label">Weak band</span>
+            <span class="value">47</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+    <section class="panel section">
+      <p class="eyebrow">Micro-paper</p>
+      <h2>156-word body</h2>
+      <p class="paper-body">
+        Can a C-drive portfolio be prioritised with FAIR-style signals even when the snapshot is too thin for FAIR assessment? We reused the bundled ResearchConstellation snapshot containing 134 indexed projects across 12 tiers and scored each record on findable, accessible, interoperable, and reusable proxy components. FAIRPortfolio v0.1 assigns a 100-point total by combining path specificity, delivery signals, automation cues, lifecycle normalization, and maturity evidence such as tests, versions, or manuscripts. Mean proxy maturity reached 48.6 points, and only 14.2 percent of projects (19 of 134) scored at least 70/100, while 35.1 percent (47 of 134) remained below 40. Stronger scores concentrated in tiers 2 and 1, whereas tier 12 had the lowest average score and tier 9 remained structurally weak. This suggests the next gain comes from metadata discipline and public delivery signals rather than inventing another analysis engine. The dashboard improves prioritisation, but it is only a FAIR-inspired proxy and cannot substitute for standards-grade compliance assessment.
+      </p>
+    </section>
+    <section class="panel section">
+      <p class="eyebrow">Artifacts</p>
+      <h2>What ships with the capsule</h2>
+      <div class="artifact-grid">
+        <article class="artifact-card">
+          <strong>Live dashboard</strong>
+          <p>The working maturity dashboard compiled from the bundled portfolio snapshot.</p>
+          <a href="../index.html">Open the dashboard</a>
+        </article>
+        <article class="artifact-card">
+          <strong>Protocol</strong>
+          <p>The FAIR-inspired audit plan defining the proxy scale and threshold estimand.</p>
+          <a href="protocol.md">Read protocol.md</a>
+        </article>
+        <article class="artifact-card">
+          <strong>Machine-readable paper</strong>
+          <p>JSON metadata for the E156 body, sentence roles, and validation details.</p>
+          <a href="paper.json">Open paper.json</a>
+        </article>
+        <article class="artifact-card">
+          <strong>Dashboard handoff</strong>
+          <p>A lightweight page that points reviewers back to the score file and root dashboard.</p>
+          <a href="assets/dashboard.html">Open dashboard handoff</a>
+        </article>
+      </div>
+      <p class="footnote">
+        Source files ship with this repository: <a href="../scripts/build_fair_portfolio.py">builder</a>, <a href="../fair-scores.json">score file</a>, and <a href="../data-source/portfolio-data.snapshot.json">bundled snapshot</a>.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
