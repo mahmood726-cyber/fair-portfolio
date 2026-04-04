@@ -1,7 +1,7 @@
 {
   "title": "FAIRPortfolio: Proxy Maturity Scoring for the C Drive Evidence Portfolio",
   "slug": "fair-portfolio",
-  "author": "Mahmood Ahmad",
+  "author": "M. Mahmood",
   "date": "2026-03-30",
   "body": "Can a C-drive portfolio be prioritised with FAIR-style signals even when the snapshot is too thin for FAIR assessment? We reused the bundled ResearchConstellation snapshot containing 134 indexed projects across 12 tiers and scored each record on findable, accessible, interoperable, and reusable proxy components. FAIRPortfolio v0.1 assigns a 100-point total by combining path specificity, delivery signals, automation cues, lifecycle normalization, and maturity evidence such as tests, versions, or manuscripts. Mean proxy maturity reached 48.6 points, and only 14.2 percent of projects (19 of 134) scored at least 70/100, while 35.1 percent (47 of 134) remained below 40. Stronger scores concentrated in tiers 2 and 1, whereas tier 12 had the lowest average score and tier 9 remained structurally weak. This suggests the next gain comes from metadata discipline and public delivery signals rather than inventing another analysis engine. The dashboard improves prioritisation, but it is only a FAIR-inspired proxy and cannot substitute for standards-grade compliance assessment.",
   "word_count": 156,
@@ -36,18 +36,7 @@
       "text": "The dashboard improves prioritisation, but it is only a FAIR-inspired proxy and cannot substitute for standards-grade compliance assessment."
     }
   ],
-  "notes": {
-    "app": "FAIRPortfolio v0.1",
-    "data": "134 indexed projects across 12 tiers parsed from data-source/portfolio-data.snapshot.json",
-    "code": "repository root; scripts/build_fair_portfolio.py; fair-scores.json",
-    "doi": "",
-    "version": "0.1",
-    "date": "2026-03-30",
-    "certainty": "moderate",
-    "validation": "PASS",
-    "protocol": "e156-submission/protocol.md",
-    "source_article": ""
-  },
+  "notes": {},
   "type": "methods",
   "primary_estimand": "proportion of projects scoring at least 70/100 on the FAIR-style proxy scale",
   "validation": {
@@ -81,7 +70,7 @@
       {
         "name": "result sentence has interval",
         "ok": true,
-        "detail": "Sentence 4 should include a confidence interval."
+        "detail": "Sentence 4 should include a quantitative result such as a percentage, count, or interval."
       },
       {
         "name": "result sentence has estimand",
