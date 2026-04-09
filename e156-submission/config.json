@@ -2,7 +2,7 @@
   "title": "FAIRPortfolio: Proxy Maturity Scoring for the C Drive Evidence Portfolio",
   "slug": "fair-portfolio",
   "date": "2026-03-30",
-  "path": "C:\\Users\\user\\FAIRPortfolio",
+  "path": "C:\\Projects\\FAIRPortfolio",
   "type": "methods",
   "primary_estimand": "proportion of projects scoring at least 70/100 on the FAIR-style proxy scale",
   "certainty": "moderate",
