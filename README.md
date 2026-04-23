@@ -25,11 +25,11 @@ The portfolio now has packaging, provenance, interoperability, and triage layers
 
 Run:
 
-`python C:\Users\user\FAIRPortfolio\scripts\build_fair_portfolio.py`
+`python scripts/build_fair_portfolio.py`
 
 For a custom source file:
 
-`python C:\Users\user\FAIRPortfolio\scripts\build_fair_portfolio.py --source path\to\portfolio-data.json`
+`python scripts/build_fair_portfolio.py --source path/to/portfolio-data.json`
 
 ## Scope note
 
