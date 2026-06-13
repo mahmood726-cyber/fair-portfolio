@@ -141,6 +141,9 @@ def score_project(project: dict[str, object]) -> dict[str, object]:
 
 def build_payload(source: dict[str, object]) -> tuple[dict[str, object], dict[str, object]]:
     scored_projects = [score_project(project) for project in source["portfolio"]]
+    n = len(scored_projects)
+    if n == 0:
+        raise ValueError("Source portfolio contains no projects; nothing to score.")
     totals = [item["scores"]["total"] for item in scored_projects]
     band_counts = Counter(item["band"] for item in scored_projects)
     tier_scores: defaultdict[str, list[int]] = defaultdict(list)
@@ -162,17 +165,17 @@ def build_payload(source: dict[str, object]) -> tuple[dict[str, object], dict[st
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "overview": {
             "sourcePath": source["overview"]["sourcePath"],
-            "trackedProjects": len(scored_projects),
+            "trackedProjects": n,
             "meanTotalScore": round(statistics.mean(totals), 1),
             "medianTotalScore": statistics.median(totals),
             "score70Count": score_70_count,
-            "score70Percent": round((score_70_count / len(scored_projects)) * 100, 1),
+            "score70Percent": round((score_70_count / n) * 100, 1),
             "score60Count": score_60_count,
-            "score60Percent": round((score_60_count / len(scored_projects)) * 100, 1),
+            "score60Percent": round((score_60_count / n) * 100, 1),
             "strongCount": strong_count,
-            "strongPercent": round((strong_count / len(scored_projects)) * 100, 1),
+            "strongPercent": round((strong_count / n) * 100, 1),
             "weakCount": weak_count,
-            "weakPercent": round((weak_count / len(scored_projects)) * 100, 1),
+            "weakPercent": round((weak_count / n) * 100, 1),
         },
         "scores": scored_projects,
     }

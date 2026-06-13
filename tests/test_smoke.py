@@ -48,5 +48,48 @@ def test_has_public_callable():
     assert publics, "module exposes no public callable"
 
 
+def test_empty_portfolio_raises():
+    """build_payload must raise ValueError rather than crash with StatisticsError/ZeroDivisionError."""
+    mod = _load()
+    empty_source = {"overview": {"sourcePath": "test"}, "portfolio": []}
+    with pytest.raises(ValueError, match="no projects"):
+        mod.build_payload(empty_source)
+
+
+def test_classify_band_boundaries():
+    mod = _load()
+    assert mod.classify_band(80) == "strong"
+    assert mod.classify_band(79) == "emerging"
+    assert mod.classify_band(60) == "emerging"
+    assert mod.classify_band(59) == "partial"
+    assert mod.classify_band(40) == "partial"
+    assert mod.classify_band(39) == "weak"
+    assert mod.classify_band(0) == "weak"
+
+
+def test_score_project_total_in_range():
+    """score_project total must be 0..100; components must each be 0..25."""
+    mod = _load()
+    project = {
+        "id": "test-001",
+        "name": "TestProject",
+        "path": r"C:\Projects\TestProject",
+        "tierShortName": "T1",
+        "tierName": "Tier 1",
+        "status": "active",
+        "statusLabel": "Active",
+        "statusExplicit": True,
+        "type": "HTML app",
+        "detail": "A test project with tests, v1.0.",
+        "row": {"Status": "Active", "Paper Status": "", "Last Touch": ""},
+    }
+    result = mod.score_project(project)
+    total = result["scores"]["total"]
+    assert 0 <= total <= 100, f"total out of range: {total}"
+    for comp in ("findable", "accessible", "interoperable", "reusable"):
+        v = result["scores"][comp]
+        assert 0 <= v <= 25, f"{comp} out of range: {v}"
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))
